@@ -1,19 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Category as CategoryModel;
 use Illuminate\Http\Request;
 
-class Category extends Controller
-{
+class Category extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        return view( 'admin.show-category', ['categorys' => CategoryModel::orderByDesc( 'created_at' )->paginate( 10 )] );
     }
 
     /**
@@ -21,9 +19,8 @@ class Category extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view( "admin.add-category" );
     }
 
     /**
@@ -32,9 +29,18 @@ class Category extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store( Request $request ) {
+        $request->validate( [
+            'category' => 'required',
+        ] );
+        $create_category = CategoryModel::create( [
+            'category_name' => $request->category,
+        ] );
+        if ( $create_category ) {
+            return back()->with( "message", "Category Create Success" );
+        } else {
+            return back()->with( "message", "Category Create Faild" );
+        }
     }
 
     /**
@@ -43,8 +49,7 @@ class Category extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show( $id ) {
         //
     }
 
@@ -54,9 +59,8 @@ class Category extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit( $id ) {
+        return view( 'admin.edit-category', ['category' => CategoryModel::where( 'id', $id )->get()->first()] );
     }
 
     /**
@@ -66,9 +70,18 @@ class Category extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update( Request $request, $id ) {
+        $request->validate( [
+            'category' => 'required',
+        ] );
+        $update_category = CategoryModel::where( 'id', $id )->update( [
+            'category_name' => $request->category,
+        ] );
+        if ( $update_category ) {
+            return redirect('/category')->with( "message", "Category Update Success" );
+        } else {
+            return back()->with( "message", "Category Update Faild" );
+        }
     }
 
     /**
@@ -77,8 +90,8 @@ class Category extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy( $id ) {
+        CategoryModel::where( "id", $id )->delete();
+        return back()->with( "message", "Category Delete Success" );
     }
 }

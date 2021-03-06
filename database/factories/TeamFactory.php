@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostFactory extends Factory
+class TeamFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Post::class;
+    protected $model = Team::class;
 
     /**
      * Define the model's default state.
@@ -22,11 +22,7 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            "title"=>$this->faker->title(),
-            "description"=>$this->faker->text(),
-            "images"=>$this->faker->title(),
-            "slug"=>$this->faker->slug(),
-            "categorie_id"=>5
+            //
         ];
     }
 }

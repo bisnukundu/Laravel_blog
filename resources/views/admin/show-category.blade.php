@@ -1,8 +1,11 @@
+@extends('layouts.app')
+@section('main')
 <div>
     <div class="">
         <div class="page-title">
             <div class="title_left">
                 <h3>Posts Manage Page</h3>
+                <a class="btn btn-primary" href="{{route('category.create')}}">Add Category</a>
             </div>
 
             <div class="title_right">
@@ -43,7 +46,7 @@
                     </div>
                     <div class="x_content">
                         @if (session()->has("message"))
-                        <h3>{{session("message")}}</h3>
+                        <h3 class="text-center text-danger">{{session("message")}}</h3>
                         @endif
                         <table class="table table-bordered">
                             <thead>
@@ -59,15 +62,18 @@
                                 @endphp
                                 @foreach ($categorys as $category)
                                 <tr>
-                                    <th scope="row">{{$sn++}}</th>
+                                    <th scope="row">{{$category->id}}</th>
                                     <td><button class="btn bg-none"
                                             wire:click="category_post({{$category->id}})">{{$category->category_name}}</button>
                                     </td>
                                     <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-primary">Edit</button>
-                                            <button wire:click="deleteCategory({{$category->id}})"
-                                                class="btn btn-danger">Delete</button>
+                                            <a href="/category/{{$category->id}}/edit" class="btn btn-primary">Edit</a>
+                                            <form action="/category/{{$category->id}}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -83,3 +89,4 @@
     </div>
 </div>
 </div>
+@endsection

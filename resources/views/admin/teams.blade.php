@@ -5,7 +5,7 @@
         <div class="page-title">
             <div class="title_left">
                 <h3>Posts Manage Page</h3>
-                <a class="btn btn-primary" href="{{route('post.create')}}">Add Post</a>
+                <a href="{{route('team.create')}}" class="btn btn-primary">Add Team</a>
             </div>
 
             <div class="title_right">
@@ -52,9 +52,12 @@
                             <thead>
                                 <tr>
                                     <th>S/N</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Profession</th>
+                                    <th>About</th>
+                                    <th>Facebook</th>
+                                    <th>Twitter</th>
+                                    <th>Google_Plus</th>
                                     <th>Image</th>
                                     <th>Action</th>
                                 </tr>
@@ -63,18 +66,22 @@
                                 @php
                                 $sn=1;
                                 @endphp
-                                @forelse ($posts as $post)
+                                @forelse ($teams as $team)
                                 <tr>
-                                    <th scope="row">{{$post->id}}</th>
-                                    <td>{{$post->title}}</td>
-                                    <td>{{$post->description}}</td>
-                                    <td>{{$post->categorie_id}}</td>
+                                    <th scope="row">{{$sn++}}</th>
+                                    <td>{{$team->name}}</td>
+                                    <td>{{$team->profession}}</td>
+                                    <td>{{$team->about}}</td>
+                                    <td>{{$team->facebook}}</td>
+                                    <td>{{$team->twitter}}</td>
+                                    <td>{{$team->google_plus}}</td>
 
-                                    <td><img src="{{asset('images/'.$post->images)}}" width="200" alt="images"></td>
+
+                                    <td><img src="{{asset('images/team/'.$team->image)}}" width="200" alt="images"></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="post/{{$post->slug}}/edit" class="btn btn-primary">Edit</a>
-                                            <form action="post/{{$post->id}}" method="POST">
+                                            <a href="team/{{$team->id}}/edit" class="btn btn-primary">Edit</a>
+                                            <form action="team/{{$team->id}}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -87,7 +94,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{$posts->links('pagination::bootstrap-4')}}
+                        {{$teams->links('pagination::bootstrap-4')}}
                     </div>
                 </div>
             </div>

@@ -13,6 +13,9 @@ class Post extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        $test = Category::find(10)->post;
+        dd( $test );
+
         return view( "admin.post-show", ["posts" => PostModel::orderByDesc( 'created_at' )->paginate( 10 )] );
     }
 
@@ -44,7 +47,7 @@ class Post extends Controller {
             'description'  => $request->postDecription,
             'images'       => $imageName,
             'categorie_id' => $request->postCategory,
-            'slug'         => SlugService::createSlug( PostModel::class, 'slug', $request->PostTitle )
+            'slug'         => SlugService::createSlug( PostModel::class, 'slug', $request->PostTitle ),
         ] );
         if ( $createPost ) {
             $request->postImage->move( public_path( 'images' ), $imageName );

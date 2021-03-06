@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Post;
 use App\Http\Controllers\Category;
+use App\Http\Controllers\Post;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,9 +21,12 @@ Route::get( '/', function () {
 } );
 
 Route::middleware( ['auth:sanctum', 'verified'] )->group( function () {
+    Route::get( "/dashboard", function () {
+        return view( 'dashboard' );
+    } );
     Route::resources( [
         'post'     => Post::class,
         'category' => Category::class,
+        'team'     => TeamController::class,
     ] );
-
 } );

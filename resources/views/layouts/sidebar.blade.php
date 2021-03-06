@@ -28,14 +28,14 @@
             </li>
             <li><a><i class="fa fa-group"></i> Team <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="chartjs.html">Manage Team</a></li>
-                    <li><a href="chartjs2.html">Add Team</a></li>
+                    <li><a href="{{route('team.index')}}">Manage Team</a></li>
+                    <li><a href="{{route('team.create')}}">Add Team</a></li>
                 </ul>
             </li>
-            <li><a><i class="fa fa-clone"></i>Works <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-clone"></i>Service <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="fixed_footer.html">Add Work</a></li>
-                    <li><a href="fixed_sidebar.html">Manage Work</a></li>
+                    <li><a href="fixed_footer.html">Add Service</a></li>
+                    <li><a href="fixed_sidebar.html">Manage Service</a></li>
                 </ul>
             </li>
         </ul>
